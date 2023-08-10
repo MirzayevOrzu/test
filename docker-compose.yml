@@ -1,0 +1,25 @@
+version: '3.8'
+services:
+  db-postgres:
+    container_name: db_postgres_starter
+    env_file: .env
+    image: postgres:14
+    restart: always
+    environment:
+      POSTGRES_USER: ${DB_USER:-postgres}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-postgres}
+      POSTGRES_DB: ${DB_NAME:-posgres}
+    ports:
+      - 5432:5432
+    volumes:
+      - ../postgres-data:/var/lib/postgresql/data
+  db-mongo:
+    container_name: db_mongo_starter
+    image: mongo:5
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${DB_USER:-mongo}
+      MONGO_INITDB_ROOT_PASSWORD: ${DB_PASSWORD:-mongo}
+    ports:
+      - 27017:27017
+    volumes:
+      - ../mongo-data:/var/lib/mongodb/data
